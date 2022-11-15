@@ -1,4 +1,29 @@
+#include <SFML/Graphics.hpp>
 #include <iostream>
+#include <conio.h>
+
+class GUI{
+    public:
+    void drawGui(){
+        sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+        sf::CircleShape shape(100.f);
+        shape.setFillColor(sf::Color::Green);
+
+        while (window.isOpen())
+        {
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                    window.close();
+            }
+
+            window.clear();
+            window.draw(shape);
+            window.display();
+        }
+    }
+};
 
 class Grid{
     public:
@@ -71,11 +96,16 @@ class Grid{
 };
 
 int main(){
+    GUI gui;
+    gui.drawGui();
+
     Grid grid;
     grid.drawGrid();
+
     while(grid.isRunning()){
         grid.getGridMovement();
     }
-    std::cout << "Cross wins!" << std::endl;
+    std::cout << "Cross wins!" << std::endl << "Press any key to exit..." << std::endl;
+    _getch();
     return 0;
 }
